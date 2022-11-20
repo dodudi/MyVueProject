@@ -13,7 +13,6 @@
         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="passRules"
         :type="show1 ? 'text' : 'password'"
-        name="input-10-1"
         label="비밀번호"
         :counter="20"
         @click:append="show1 = !show1"

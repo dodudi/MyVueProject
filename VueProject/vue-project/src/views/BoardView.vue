@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Nutrition
+      게시판
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -13,110 +13,79 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="boards"
       :search="search"
-    ></v-data-table>
+      @click:row="clickEvents"
+    >
+    </v-data-table>
   </v-card>
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  created() {
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos/1")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    clickEvents(value) {
+      this.$router.push({ name: "boarddetailvue" });
+      console.log(value);
+      console.log("nice" + value);
+    },
+  },
   data() {
     return {
       search: "",
       headers: [
-        {
-          text: "Dessert (100g serving)",
-          align: "start",
-          sortable: false,
-          value: "name",
-        },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" },
+        { text: "글 번호", value: "BOARD_NUMBER" },
+        { text: "글 제목", value: "BOARD_TITLE" },
+        { text: "글 작성자", value: "MEMBER_ID" },
+        { text: "글 작성일", value: "BOARD_DATE" },
+        { text: "조회수", value: "BOARD_READCOUNT" },
       ],
-      desserts: [
+      boards: [
         {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: "1%",
+          BOARD_NUMBER: 1,
+          BOARD_TITLE: "Board Title 01",
+          MEMBER_ID: "user01",
+          BOARD_DATE: "2022-10-10",
+          BOARD_READCOUNT: 0,
         },
         {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%",
+          BOARD_NUMBER: 2,
+          BOARD_TITLE: "Board Title 02",
+          MEMBER_ID: "user02",
+          BOARD_DATE: "2022-10-10",
+          BOARD_READCOUNT: 0,
         },
         {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: "7%",
+          BOARD_NUMBER: 3,
+          BOARD_TITLE: "Board Title 01",
+          MEMBER_ID: "user01",
+          BOARD_DATE: "2022-10-10",
+          BOARD_READCOUNT: 0,
         },
         {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: "8%",
+          BOARD_NUMBER: 4,
+          BOARD_TITLE: "Board Title 01",
+          MEMBER_ID: "user01",
+          BOARD_DATE: "2022-10-10",
+          BOARD_READCOUNT: 0,
         },
         {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: "16%",
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: "0%",
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: "2%",
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: "45%",
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: "22%",
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: "6%",
+          BOARD_NUMBER: 5,
+          BOARD_TITLE: "Board Title 01",
+          MEMBER_ID: "user01",
+          BOARD_DATE: "2022-10-10",
+          BOARD_READCOUNT: 0,
         },
       ],
     };

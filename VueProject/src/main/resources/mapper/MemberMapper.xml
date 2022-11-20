@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vue.mapper.MemberMapper">
+	<select id="getCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		TABLE_MEMBER
+	</select>
+	<insert id="addMember" parameterType="com.vue.dto.MemberDTO">
+		INSERT INTO TABLE_MEMBER VALUES (#{MEMBER_NUMBER}, #{MEMBER_ID}, #{MEMBER_PASS}, #{MEMBER_NAME});
+	</insert>
+</mapper>

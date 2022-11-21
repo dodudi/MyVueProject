@@ -22,6 +22,7 @@ const routes = [
     path: "/boarddetailvue",
     name: "boarddetailvue",
     component: BoardDetail,
+    props: true,
   },
   {
     path: "/checkrezervevue",

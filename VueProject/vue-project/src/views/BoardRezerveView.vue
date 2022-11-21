@@ -29,7 +29,6 @@ export default {
       .get("/getRezerveBoards")
       .then((response) => {
         this.boards = response.data;
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -37,9 +36,9 @@ export default {
   },
   methods: {
     clickEvents(value) {
-      this.$router.push({ name: "boarddetailvue" });
       console.log(value);
       console.log("nice" + value);
+      this.$router.push({ name: "boarddetailvue", params: value });
     },
   },
   data() {

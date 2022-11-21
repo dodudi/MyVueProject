@@ -21,17 +21,25 @@ public class MemberMapperTDD {
 	}
 	
 	
-	private static final int MEMBER_NUMBER =2 ;
 	private static final String MEMBER_ID = "user02";
 	private static final String MEMBER_PASS = "1234";
 	private static final String MEMBER_NAME = "김민수";
 	@Test
 	public void addMember() {
 		MemberDTO member = new MemberDTO();
-		member.setMEMBER_NUMBER(MEMBER_NUMBER);
 		member.setMEMBER_ID(MEMBER_ID);
 		member.setMEMBER_PASS(MEMBER_PASS);
 		member.setMEMBER_NAME(MEMBER_NAME);
 		memberMapper.addMember(member);
+	}
+	
+	@Test
+	public void getMember() {
+		MemberDTO member = new MemberDTO();
+		member.setMEMBER_ID(MEMBER_ID);
+		member.setMEMBER_PASS(MEMBER_PASS);
+		member.setMEMBER_NAME(MEMBER_NAME);
+		MemberDTO getMember = memberMapper.getMember(member);
+		log.info(getMember + "");
 	}
 }

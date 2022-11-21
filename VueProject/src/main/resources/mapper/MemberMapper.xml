@@ -7,7 +7,10 @@
 		SELECT COUNT(*) FROM
 		TABLE_MEMBER
 	</select>
+	<select id="getMember" resultType="com.vue.dto.MemberDTO" parameterType="string">
+		SELECT * FROM TABLE_MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+	</select>
 	<insert id="addMember" parameterType="com.vue.dto.MemberDTO">
-		INSERT INTO TABLE_MEMBER VALUES (#{MEMBER_NUMBER}, #{MEMBER_ID}, #{MEMBER_PASS}, #{MEMBER_NAME});
+		INSERT INTO TABLE_MEMBER VALUES (#{MEMBER_ID}, #{MEMBER_PASS}, #{MEMBER_NAME});
 	</insert>
 </mapper>

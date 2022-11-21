@@ -8,4 +8,5 @@ import com.vue.dto.MemberDTO;
 public interface MemberMapper {
 	public int getCount();
 	public int addMember(MemberDTO memberDTO);
+	public MemberDTO getMember(MemberDTO memberDTO);
 }

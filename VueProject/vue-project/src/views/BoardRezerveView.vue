@@ -26,7 +26,7 @@ import axios from "axios";
 export default {
   created() {
     axios
-      .get("/getShowBoards")
+      .get("/getRezerveBoards")
       .then((response) => {
         this.boards = response.data;
         console.log(response.data);

@@ -5,6 +5,7 @@ import BoardView from "../views/BoardView.vue";
 import BoardDetail from "../views/BoardDetail.vue";
 import LoginView from "../views/LoginView.vue";
 import JoinView from "../views/JoinView.vue";
+import BoardRezerveView from "../views/BoardRezerveView.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -36,6 +37,11 @@ const routes = [
     path: "/joinView",
     name: "joinView",
     component: JoinView,
+  },
+  {
+    path: "/boardRezerveView",
+    name: "boardRezerveView",
+    component: BoardRezerveView,
   },
 ];
 

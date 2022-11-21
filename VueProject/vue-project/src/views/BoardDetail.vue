@@ -17,6 +17,7 @@
                 Board ReadCount : {{ $route.params.board_READCOUNT }}
                 <v-divider class="mb-4"></v-divider>
                 {{ $route.params.board_CONTENT }}
+                rakwelfkawe;fkaewlfkawel;fkl;
               </v-card-text>
             </v-responsive>
           </v-card>

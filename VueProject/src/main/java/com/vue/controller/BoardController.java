@@ -1,6 +1,8 @@
 package com.vue.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +23,14 @@ public class BoardController {
 	@Autowired
 	private BoardMapper boardMapper;
 	@PostMapping("/getBoards")
-	public List<BoardDTO> getBoards(@RequestBody PageInfo pageInfo){
+	public Map<String, Object> getBoards(@RequestBody PageInfo pageInfo){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<BoardDTO> boards = boardMapper.getBoards();
 		PageCalc pageCalc = new PageCalc(boards.size(), 10, pageInfo);
 		
-		return boardMapper.getBoards();
+		resultMap.put("boards", boards);
+		resultMap.put("pageCalc", pageCalc);
+		return resultMap;
 	}
 	
 	@PostMapping("/getShowBoards")
@@ -45,8 +50,8 @@ public class BoardController {
 	}
 	
 	@PostMapping("delBoard")
-	public List<BoardDTO> delBoard(@RequestBody BoardDTO board) {
+	public int delBoard(@RequestBody BoardDTO board) {
 		int result = boardMapper.delBoard(board);
-		return boardMapper.getRezerveBoard();
+		return result;
 	}
 }

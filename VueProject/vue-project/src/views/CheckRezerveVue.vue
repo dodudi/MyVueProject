@@ -108,12 +108,7 @@
 
 <script>
 import { getBoards, addBoard, delBoard } from "../api/BoardApi.js";
-import {
-  paging,
-  getHeader,
-  getBody,
-  getDefaultPageInfo,
-} from "../api/PageCalc.js";
+import { getHeader, getBody, getDefaultPageInfo } from "../api/PageCalc.js";
 import { formatDate } from "../api/FormatDate.js";
 export default {
   data() {
@@ -141,11 +136,9 @@ export default {
       handler() {
         getBoards(this.pageInfo)
           .then((response) => {
-            this.pageCalc = paging(101, 10, this.pageInfo);
-            console.log(response.data);
-            this.boards = response.data;
+            this.boards = response.data.boards;
+            this.pageCalc = response.data.pageCalc;
             this.defaultItem.member_ID = sessionStorage.getItem("member_ID");
-            console.log(this.boards);
           })
           .catch((error) => {
             console.log(error);
@@ -168,26 +161,14 @@ export default {
     filters() {
       return formatDate();
     },
-    paging() {
-      this.pageCalc = this.paging(101, 10, this.pageInfo);
-    },
     initialize() {
+      //현재 페이지 번호
+      //페이지당 보여줄 아이템 개수
       this.pageInfo = getDefaultPageInfo();
       this.headers = getHeader();
       this.editedItem = getBody();
       this.defaultItem = getBody();
-      this.pageCalc = paging(101, 10, this.pageInfo);
-      console.log(this.pageInfo.pageNum);
-      getBoards(this.pageInfo)
-        .then((response) => {
-          console.log(response.data);
-          this.boards = response.data;
-          this.defaultItem.member_ID = sessionStorage.getItem("member_ID");
-          console.log(this.boards);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.pageLoad();
     },
     //add, mod dialog 열기
     editItem(item) {
@@ -211,13 +192,25 @@ export default {
         this.dialogDelete = true;
       }
     },
+    pageLoad() {
+      getBoards(this.pageInfo)
+        .then((response) => {
+          console.log(response.data);
+          this.boards = response.data.boards;
+          this.pageCalc = response.data.pageCalc;
+          this.defaultItem.member_ID = sessionStorage.getItem("member_ID");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     //아이템 삭제
     deleteItemConfirm() {
       delBoard(this.editedItem)
         .then((response) => {
-          console.log(response.data);
-          this.boards = response.data;
-          this.boards.splice(this.editedIndex, 1);
+          if (response.data == 1) {
+            this.pageLoad();
+          }
           this.closeDelete();
         })
         .catch((error) => {

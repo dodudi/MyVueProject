@@ -17,11 +17,21 @@ public class BoardMapperTDD {
 	private BoardMapper boardMapper;
 	
 	@Test
+	public void getBoards() {
+		List<BoardDTO> boards = boardMapper.getBoards();
+		for (BoardDTO boardDTO : boards) {
+			if(boardDTO != null)
+				log.info(boardDTO.toString());
+		}
+	}
+	
+	@Test
 	public void getShowBoards() {
 		List<BoardDTO> boards = boardMapper.getShowBoards();
 		
 		for (BoardDTO boardDTO : boards) {
-			log.info(boardDTO.getBOARD_TITLE());
+			if(boardDTO != null)
+				log.info(boardDTO.toString());
 		}
 	}
 	@Test
@@ -29,7 +39,19 @@ public class BoardMapperTDD {
 		List<BoardDTO> boards = boardMapper.getRezerveBoard();
 		
 		for (BoardDTO boardDTO : boards) {
-			log.info(boardDTO.getBOARD_TITLE());
+			if(boardDTO != null)
+				log.info(boardDTO.toString());
+		}
+	}
+	
+	@Test
+	public void addBoard() {
+		BoardDTO board = new BoardDTO();
+		board.setBoardTitle("Add Title");
+		board.setBoardContent("Add Content");
+		board.setMemberId("user01");
+		for(int i = 0 ; i < 305; i++) {
+			boardMapper.addBoard(board);
 		}
 	}
 }

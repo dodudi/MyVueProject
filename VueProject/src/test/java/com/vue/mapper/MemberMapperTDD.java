@@ -27,18 +27,18 @@ public class MemberMapperTDD {
 	@Test
 	public void addMember() {
 		MemberDTO member = new MemberDTO();
-		member.setMEMBER_ID(MEMBER_ID);
-		member.setMEMBER_PASS(MEMBER_PASS);
-		member.setMEMBER_NAME(MEMBER_NAME);
+		member.setMemberId(MEMBER_ID);
+		member.setMemberPass(MEMBER_PASS);
+		member.setMemberName(MEMBER_NAME);
 		memberMapper.addMember(member);
 	}
 	
 	@Test
 	public void getMember() {
 		MemberDTO member = new MemberDTO();
-		member.setMEMBER_ID(MEMBER_ID);
-		member.setMEMBER_PASS(MEMBER_PASS);
-		member.setMEMBER_NAME(MEMBER_NAME);
+		member.setMemberId(MEMBER_ID);
+		member.setMemberPass(MEMBER_PASS);
+		member.setMemberName(MEMBER_NAME);
 		MemberDTO getMember = memberMapper.getMember(member);
 		log.info(getMember + "");
 	}

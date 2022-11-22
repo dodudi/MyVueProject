@@ -6,7 +6,7 @@
           >Collapsing Bar</v-toolbar-title
         >
         <v-tabs align-with-title>
-          <v-tab to="/boardvue" exact>게시판 확인</v-tab>
+          <v-tab to="/boardvue" exact>모든 게시판 확인</v-tab>
           <v-tab to="/checkrezervevue" style="margin-right: auto"
             >게시판 예약 확인</v-tab
           >

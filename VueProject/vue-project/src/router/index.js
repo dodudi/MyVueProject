@@ -6,6 +6,7 @@ import BoardDetail from "../views/BoardDetail.vue";
 import LoginView from "../views/LoginView.vue";
 import JoinView from "../views/JoinView.vue";
 import BoardRezerveView from "../views/BoardRezerveView.vue";
+import CheckRezerveVue from "../views/CheckRezerveVue.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -27,7 +28,7 @@ const routes = [
   {
     path: "/checkrezervevue",
     name: "checkrezervevue",
-    component: BoardDetail,
+    component: CheckRezerveVue,
   },
   {
     path: "/loginView",

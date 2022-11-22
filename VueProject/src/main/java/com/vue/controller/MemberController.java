@@ -26,9 +26,7 @@ public class MemberController {
 	@PostMapping("/memberJoin")
 	public String memberJoin(@RequestBody MemberDTO member) {
 		String resultData = "fail";
-		if (member != null) {
-			resultData = memberService.joinCheck(member);
-		}
+		resultData = memberService.joinCheck(member);
 
 		if(resultData == "success") {
 			int count = memberService.join(member);
@@ -41,7 +39,7 @@ public class MemberController {
 	
 	@PostMapping("/memberLogin")
 	public String memberLogin(@RequestBody MemberDTO member) {
-		log.info(member.getMEMBER_ID());
+		//log.info(member.getMEMBER_ID());
 		String result = memberService.loginCheck(member);
 		return result;
 	}

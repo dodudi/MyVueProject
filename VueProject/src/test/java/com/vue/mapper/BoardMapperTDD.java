@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.vue.api.PageCalc;
+import com.vue.api.PageInfo;
 import com.vue.dto.BoardDTO;
 
 @SpringBootTest
@@ -18,13 +20,20 @@ public class BoardMapperTDD {
 	
 	@Test
 	public void getBoards() {
-		List<BoardDTO> boards = boardMapper.getBoards();
+		int boardCount = boardMapper.getBoardCount();
+		PageInfo pageInfo = new PageInfo();
+		PageCalc pageCalc = new PageCalc(boardCount, 10, pageInfo);
+		List<BoardDTO> boards = boardMapper.getBoards(pageCalc);
 		for (BoardDTO boardDTO : boards) {
 			if(boardDTO != null)
 				log.info(boardDTO.toString());
 		}
 	}
-	
+	@Test
+	public void getBoardCount() {
+		int boardCount = boardMapper.getBoardCount();
+				log.info(boardCount + "");
+	}
 	@Test
 	public void getShowBoards() {
 		List<BoardDTO> boards = boardMapper.getShowBoards();

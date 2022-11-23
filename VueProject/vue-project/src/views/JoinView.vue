@@ -10,7 +10,7 @@
       ></v-text-field>
       <v-text-field
         v-model="MEMBER_ID"
-        @keydown="dialog3 = false"
+        @keydown="joinCheck = false"
         :counter="10"
         :rules="idRules"
         label="아이디"
@@ -42,7 +42,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      dialog3: false,
+      joinCheck: false,
       show1: false,
       valid: true,
       MEMBER_NAME: "",
@@ -51,7 +51,7 @@ export default {
       idRules: [
         (v) => !!v || "아이디를 입력해주세요.",
         (v) => (v && v.length <= 10) || "아이디는 10글자 이하입니다.",
-        (v) => (v && this.dialog3 == false) || "이미 존재하는 아이디입니다.",
+        (v) => (v && this.joinCheck == false) || "이미 존재하는 아이디입니다.",
       ],
       MEMBER_PASS: "",
       passRules: [
@@ -70,17 +70,17 @@ export default {
       if (inputCheck == true) {
         axios
           .post("/memberJoin", {
-            member_ID: this.MEMBER_ID,
-            member_PASS: this.MEMBER_PASS,
-            member_NAME: this.MEMBER_NAME,
+            memberId: this.MEMBER_ID,
+            memberPass: this.MEMBER_PASS,
+            memberName: this.MEMBER_NAME,
           })
           .then((response) => {
             console.log(response.data);
-            if (response.data == "success") {
+            if (response.data == true) {
+              alert("회원가입에 성공하였습니다.");
               this.$router.push({ name: "boardvue" });
             } else {
-              this.dialog3 = true;
-              console.log("가입 실패");
+              this.joinCheck = true;
               this.$refs.form.validate();
             }
           })

@@ -14,6 +14,7 @@
 	</select>
 	
 	<insert id="addMember" parameterType="com.vue.dto.MemberDTO">
-		INSERT INTO TABLE_MEMBER(member_id, member_pass, member_name) VALUES (#{memberId}, #{memberPass}, #{memberName});
+		INSERT INTO TABLE_MEMBER(member_id, member_pass, member_name) 
+		VALUES (#{memberId}, #{memberPass}, #{memberName});
 	</insert>
 </mapper>

@@ -25,8 +25,9 @@ public class BoardController {
 	@PostMapping("/getBoards")
 	public Map<String, Object> getBoards(@RequestBody PageInfo pageInfo){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<BoardDTO> boards = boardMapper.getBoards();
-		PageCalc pageCalc = new PageCalc(boards.size(), 10, pageInfo);
+		int boardCount = boardMapper.getBoardCount();
+		PageCalc pageCalc = new PageCalc(boardCount, 10, pageInfo);
+		List<BoardDTO> boards = boardMapper.getBoards(pageCalc);
 		
 		resultMap.put("boards", boards);
 		resultMap.put("pageCalc", pageCalc);

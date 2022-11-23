@@ -15,7 +15,6 @@ function formatDate() {
   if (day < 10) {
     day = "0" + day;
   }
-  console.log(year + "-" + month + "-" + day);
   // 최종 포맷 (ex - '2021-10-08')
   return year + "-" + month + "-" + day;
 }

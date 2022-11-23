@@ -7,7 +7,6 @@ import com.vue.dto.MemberDTO;
 
 @Service
 public interface MemberService {
-	public String joinCheck(MemberDTO member);
-	public int join(MemberDTO member);
+	public boolean joinCheck(MemberDTO member);
 	public String loginCheck(MemberDTO member);
 }

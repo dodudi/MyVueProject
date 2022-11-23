@@ -1,5 +1,7 @@
 package com.vue.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,44 +10,34 @@ import com.vue.mapper.MemberMapper;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-
+	private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
 	@Autowired
 	private MemberMapper memberMapper;
-
+	
 	@Override
-	public String joinCheck(MemberDTO member) {
-		if (member != null) {
-			MemberDTO getMember = memberMapper.getMember(member);
-			String resultData = "";
-			if (getMember == null) {
-				resultData = "success";
-			} else {
-				resultData = "fail";
-			}
-		}else {
-			//resultData ="fail";
+	public boolean joinCheck(MemberDTO member) throws NullPointerException {
+		MemberDTO getMember = memberMapper.getMember(member);
+		int resultData = 0;
+		
+		if (getMember == null) {
+			resultData= memberMapper.addMember(member);
 		}
 		
-		return "";
-		
-	}
-
-	@Override
-	public int join(MemberDTO member) {
-		return memberMapper.addMember(member);
+		return resultData == 1;
 	}
 
 	@Override
 	public String loginCheck(MemberDTO member) {
 		MemberDTO getMember = memberMapper.getMember(member);
+		log.info(getMember+ "");
 		String resultData = "";
 		if (getMember == null) {
-			resultData = "id";
+			resultData = "errorId";
 		}
 
-//		if (resultData == "" && !getMember.getMEMBER_PASS().equals(member.getMEMBER_PASS())) {
-//			resultData = "pass";
-//		}
+		if (resultData == "" && !getMember.getMemberPass().equals(member.getMemberPass())) {
+			resultData = "errorPass";
+		}
 		return resultData;
 	}
 }

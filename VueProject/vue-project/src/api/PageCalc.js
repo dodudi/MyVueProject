@@ -2,6 +2,7 @@ function getDefaultPageInfo() {
   return { pageNum: 1, itemLimit: 10 };
 }
 
+//데이터 테이블 Header 컬럼 설정
 function getHeader() {
   return [
     { text: "글 번호", value: "boardNumber" },
@@ -13,6 +14,7 @@ function getHeader() {
   ];
 }
 
+//데이터 테이블 기본값 설정
 function getBody() {
   return {
     boardNumber: 0,

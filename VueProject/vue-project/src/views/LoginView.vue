@@ -63,22 +63,22 @@ export default {
       if (loginCheck == true) {
         await axios
           .post("/memberLogin", {
-            member_ID: this.MEMBER_ID,
-            member_PASS: this.MEMBER_PASS,
+            memberId: this.MEMBER_ID,
+            memberPass: this.MEMBER_PASS,
           })
           .then((response) => {
             let result = response.data;
-            if (result == "id") {
-              this.idCheck = true;
-              this.$refs.form.validate();
-            } else if (result == "pass") {
-              this.passCheck = true;
-              this.$refs.form.validate();
-            } else {
+            //Login Success
+            if (result == "") {
               sessionStorage.setItem("member_ID", this.MEMBER_ID);
               location.href = "/boardvue";
-              //this.$router.push({ name: "boardvue" });
+              return;
             }
+
+            //Login Fail
+            this.idCheck = result == "errorId";
+            this.passCheck = result == "errorPass";
+            this.$refs.form.validate();
           })
           .catch((error) => console.log(error));
       }

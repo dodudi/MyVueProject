@@ -24,23 +24,16 @@ public class MemberController {
 	
 	
 	@PostMapping("/memberJoin")
-	public String memberJoin(@RequestBody MemberDTO member) {
-		String resultData = "fail";
-		resultData = memberService.joinCheck(member);
-
-		if(resultData == "success") {
-			int count = memberService.join(member);
-			resultData = (count == 0) ? "fail" : "success";
-		}
-		
-		
+	public boolean memberJoin(@RequestBody MemberDTO member) {
+		log.info(member.toString());
+		boolean resultData = memberService.joinCheck(member);
 		return resultData;
 	}
 	
 	@PostMapping("/memberLogin")
 	public String memberLogin(@RequestBody MemberDTO member) {
-		//log.info(member.getMEMBER_ID());
 		String result = memberService.loginCheck(member);
+		log.info(result);
 		return result;
 	}
 }

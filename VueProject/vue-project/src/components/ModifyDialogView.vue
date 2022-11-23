@@ -18,7 +18,7 @@
           <v-row>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
-                v-model="getEditedItem.board_TITLE"
+                v-model="boardTitle"
                 label="board_TITLE"
               ></v-text-field>
             </v-col>
@@ -26,7 +26,7 @@
               <v-textarea
                 name="input-7-1"
                 label="board_CONTENT"
-                v-model="getEditedItem.board_CONTENT"
+                v-model="boardContent"
                 hint="Hint text"
               ></v-textarea>
             </v-col>
@@ -47,6 +47,12 @@
 import { formatDate } from "../api/FormatDate.js";
 import { save, close } from "../api/DialogApi.js";
 export default {
+  data() {
+    return {
+      boardTitle: "",
+      boardContent: "",
+    };
+  },
   computed: {
     getDefaultItem() {
       return this.$store.getters.getDefaultItem;
@@ -77,8 +83,8 @@ export default {
       // });
     },
     //아이템 추가 or 설정 저장
-    async save() {
-      save();
+    async save(boardTitle, boardContent) {
+      save(boardTitle, boardContent);
       // if (this.editedIndex > -1) {
       //   //modify
       //   Object.assign(this.boards[this.editedIndex], this.editedItem);

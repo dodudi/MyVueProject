@@ -20,12 +20,6 @@
 import { deleteItemConfirm, closeDelete } from "../api/DialogApi.js";
 export default {
   computed: {
-    getDefaultItem() {
-      return this.$store.getters.getDefaultItem;
-    },
-    getEditedItem() {
-      return this.$store.getters.getEditedItem;
-    },
     getDeleteDialog() {
       return this.$store.getters.getDeleteDialog;
     },

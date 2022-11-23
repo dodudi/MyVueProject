@@ -22,7 +22,7 @@ function close() {
 }
 
 //수정, 추가 다이얼로그 저장
-async function save() {
+async function save(boardTitle, boardContent) {
   if (store.getters.getEditedIndex > -1) {
     //modify
     Object.assign(
@@ -31,10 +31,13 @@ async function save() {
     );
   } else {
     //add
-    let boards = store.getters.getBoars;
-    let editiedItem = this.$store.getters.getEditedItem;
+    let boards = store.getters.getBoards;
+    let editiedItem = store.getters.getEditedItem;
+    editiedItem.boardTitle = boardTitle;
+    editiedItem.boardContent = boardContent;
     editiedItem.board_DATE = formatDate();
     editiedItem.board_NUMBER = boards.length + 1;
+
     addBoard(editiedItem)
       .then((response) => {
         console.log(response.data);

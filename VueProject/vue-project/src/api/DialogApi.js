@@ -35,9 +35,9 @@ async function save(boardTitle, boardContent) {
     let editiedItem = store.getters.getEditedItem;
     editiedItem.boardTitle = boardTitle;
     editiedItem.boardContent = boardContent;
-    editiedItem.board_DATE = formatDate();
-    editiedItem.board_NUMBER = boards.length + 1;
-
+    editiedItem.boardDate = formatDate();
+    editiedItem.boardNumber = boards.length + 1;
+    console.log(editiedItem);
     addBoard(editiedItem)
       .then((response) => {
         console.log(response.data);

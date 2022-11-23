@@ -7,12 +7,18 @@ import LoginView from "../views/LoginView.vue";
 import JoinView from "../views/JoinView.vue";
 import BoardRezerveView from "../views/BoardRezerveView.vue";
 import CheckRezerveVue from "../views/CheckRezerveVue.vue";
+import BoardTest from "../views/Board/BoardTest.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "boardvue",
+    redirect: "boardtest",
+  },
+  {
+    path: "/boardtest",
+    name: "boardtest",
+    component: BoardTest,
   },
   {
     path: "/boardvue",

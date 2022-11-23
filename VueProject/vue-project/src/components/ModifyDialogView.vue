@@ -19,15 +19,14 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 v-model="boardTitle"
-                label="board_TITLE"
+                label="boardTitle"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-textarea
                 name="input-7-1"
-                label="board_CONTENT"
+                label="boardContent"
                 v-model="boardContent"
-                hint="Hint text"
               ></v-textarea>
             </v-col>
           </v-row>
@@ -54,12 +53,6 @@ export default {
     };
   },
   computed: {
-    getDefaultItem() {
-      return this.$store.getters.getDefaultItem;
-    },
-    getEditedItem() {
-      return this.$store.getters.getEditedItem;
-    },
     getDialog() {
       return this.$store.getters.getDialog;
     },
@@ -73,37 +66,10 @@ export default {
     },
     close() {
       close();
-      // this.$store.commit("SET_DIALOG", false);
-      // this.$nextTick(() => {
-      //   this.$store.commit(
-      //     "SET_EDITED_ITEM",
-      //     Object.assign({}, this.getDefaultItem)
-      //   );
-      //   this.$store.commit("SET_EDITED_INDEX", -1);
-      // });
     },
     //아이템 추가 or 설정 저장
     async save(boardTitle, boardContent) {
       save(boardTitle, boardContent);
-      // if (this.editedIndex > -1) {
-      //   //modify
-      //   Object.assign(this.boards[this.editedIndex], this.editedItem);
-      // } else {
-      //   //add
-      //   let editiedItem = this.$store.getters.getEditedItem;
-      //   editiedItem.board_DATE = this.filters();
-      //   editiedItem.board_NUMBER = this.$store.getters.getBoards.length + 1;
-      //   addBoard(editiedItem)
-      //     .then((response) => {
-      //       console.log(response.data.boards);
-      //       this.$store.commit("SET_BOARDS", response.data.boards);
-      //       this.close();
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //       alert("게시글 추가에 실패했습니다.");
-      //     });
-      // }
     },
   },
 };

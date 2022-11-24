@@ -13,9 +13,8 @@ public class PageTDD {
 	
 	@Test
 	public void pageTest() {
-		PageInfo pageInfo = new PageInfo(5, 10);
-		PageCalc pageCalc = new PageCalc(101, 10, pageInfo);
+		PageInfo pageInfo = new PageInfo();
 		
-		log.info(pageCalc.toString());
+		log.info(pageInfo.toString());
 	}
 }

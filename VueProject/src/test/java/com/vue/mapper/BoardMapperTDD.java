@@ -22,8 +22,8 @@ public class BoardMapperTDD {
 	public void getBoards() {
 		int boardCount = boardMapper.getBoardCount();
 		PageInfo pageInfo = new PageInfo();
-		PageCalc pageCalc = new PageCalc(boardCount, 10, pageInfo);
-		List<BoardDTO> boards = boardMapper.getBoards(pageCalc);
+		pageInfo.setTotal(boardCount);
+		List<BoardDTO> boards = boardMapper.getBoards(pageInfo);
 		for (BoardDTO boardDTO : boards) {
 			if(boardDTO != null)
 				log.info(boardDTO.toString());

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vue.api.PageCalc;
 import com.vue.api.PageInfo;
 import com.vue.dto.BoardDTO;
 import com.vue.mapper.BoardMapper;
@@ -26,17 +25,27 @@ public class BoardController {
 	public Map<String, Object> getBoards(@RequestBody PageInfo pageInfo){
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int boardCount = boardMapper.getBoardCount();
-		PageCalc pageCalc = new PageCalc(boardCount, 10, pageInfo);
-		List<BoardDTO> boards = boardMapper.getBoards(pageCalc);
-		
+		pageInfo.setTotal(boardCount);
+		pageInfo.pageCalculate();
+		List<BoardDTO> boards = boardMapper.getBoards(pageInfo);
+		log.info(pageInfo.toString());
 		resultMap.put("boards", boards);
-		resultMap.put("pageCalc", pageCalc);
+		resultMap.put("pageInfo", pageInfo);
 		return resultMap;
 	}
 	
 	@PostMapping("/getShowBoards")
-	public List<BoardDTO> getShowBoards(@RequestBody PageInfo pageInfo){
-		return boardMapper.getShowBoards();
+	public Map<String, Object> getShowBoards(@RequestBody PageInfo pageInfo){
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int boardCount = boardMapper.getShowBoardCount();
+		pageInfo.setTotal(boardCount);
+		pageInfo.pageCalculate();
+		log.info(pageInfo.toString());
+		List<BoardDTO> boards = boardMapper.getShowBoards(pageInfo);
+		
+		resultMap.put("boards", boards);
+		resultMap.put("pageInfo", pageInfo);
+		return resultMap;
 	}
 	@PostMapping("/getRezerveBoards")
 	public List<BoardDTO> getRezerveBoards(@RequestBody PageInfo pageInfo){
@@ -55,4 +64,5 @@ public class BoardController {
 		int result = boardMapper.delBoard(board);
 		return result;
 	}
+
 }

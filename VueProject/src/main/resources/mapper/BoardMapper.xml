@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vue.mapper.BoardMapper">
-	<select id="getBoards" resultType="com.vue.dto.BoardDTO" parameterType="com.vue.api.PageCalc">
+	<select id="getBoards" resultType="com.vue.dto.BoardDTO" parameterType="com.vue.api.PageInfo">
 		SELECT board_number as boardNumber
 		, board_title as boardTitle
 		, board_content as boardContent
@@ -15,26 +15,33 @@
 			(SELECT ROW_NUMBER() OVER(ORDER BY board_number DESC) as ROW,* 
 				FROM TABLE_BOARD 
 				WHERE BOARD_REZERVE_CHECK = 0 
-				limit #{itemEnd} ) AS T1 
-		WHERE ROW >= #{itemStart}
---select 쿼리 end
+				limit #{endItem} ) AS T1 
+		WHERE ROW >= #{startItem}
 	</select>
 	<select id="getBoardCount" resultType="_int">
 		SELECT COUNT(board_number)
 		FROM TABLE_BOARD
 	</select>
-	<select id="getShowBoards" resultType="com.vue.dto.BoardDTO">
-		SELECT 	board_number as boardNumber
-			   	,board_title as boardTitle
-			   	,board_content as boardContent
-				,board_date as boardDate
-				,board_readcount as boardReadCount
-				,board_rezerve_check as boardRezerveCheck
-				,member_id as memberId 
-		FROM TABLE_BOARD
-		WHERE board_rezerve_check = 1
+	<select id="getShowBoards" resultType="com.vue.dto.BoardDTO"  parameterType="com.vue.api.PageInfo">
+		SELECT board_number as boardNumber
+		, board_title as boardTitle
+		, board_content as boardContent
+		, board_date as boardDate
+		, board_readcount as boardReadCount
+		, board_rezerve_check as boardRezerveCheck
+		, member_id as memberId 
+		FROM 
+			(SELECT ROW_NUMBER() OVER(ORDER BY board_number DESC) as ROW,* 
+				FROM TABLE_BOARD 
+				WHERE BOARD_REZERVE_CHECK = 1 
+				limit #{endItem} ) AS T1 
+		WHERE ROW >= #{startItem}
 	</select>
-
+	<select id="getShowBoardCount" resultType="_int">
+		SELECT COUNT(board_number)
+		FROM TABLE_BOARD
+		WHERE BOARD_REZERVE_CHECK = 1
+	</select>
 	<select id="getRezerveBoard" resultType="com.vue.dto.BoardDTO">
 		SELECT board_number as boardNumber
 			   	,board_title as boardTitle

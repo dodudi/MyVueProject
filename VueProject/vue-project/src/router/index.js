@@ -7,18 +7,30 @@ import LoginView from "../views/LoginView.vue";
 import JoinView from "../views/JoinView.vue";
 import BoardRezerveView from "../views/BoardRezerveView.vue";
 import CheckRezerveVue from "../views/CheckRezerveVue.vue";
-import BoardTest from "../views/Board/BoardTest.vue";
+import ShowBoardView from "../views/Board/ShowBoardView.vue";
+import AllBoardView from "../views/Board/AllBoardView.vue";
+import AddBoardView from "../views/Board/AddBoardView.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "boardtest",
+    redirect: "allBoardView",
   },
   {
-    path: "/boardtest",
-    name: "boardtest",
-    component: BoardTest,
+    path: "/showBoardView",
+    name: "showBoardView",
+    component: ShowBoardView,
+  },
+  {
+    path: "/addBoardView",
+    name: "addBoardView",
+    component: AddBoardView,
+  },
+  {
+    path: "/allBoardView",
+    name: "allBoardView",
+    component: AllBoardView,
   },
   {
     path: "/boardvue",

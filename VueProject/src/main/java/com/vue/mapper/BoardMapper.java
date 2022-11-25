@@ -17,6 +17,7 @@ public interface BoardMapper {
 	public int getShowBoardCount();
 	public int getRezerveBoardCount();
 	
+	public int acceptBoard(BoardDTO board);
 	public int addBoard(BoardDTO board);
 	public int delBoard(BoardDTO board);
 }

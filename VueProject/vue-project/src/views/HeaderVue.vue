@@ -6,19 +6,19 @@
           >Collapsing Bar</v-toolbar-title
         >
         <v-tabs align-with-title>
-          <v-tab to="/boardvue" exact>모든 게시판 확인</v-tab>
-          <v-tab to="/checkrezervevue" style="margin-right: auto"
-            >게시판 예약 확인</v-tab
+          <v-tab to="/allBoardView" exact>모든 게시판 확인</v-tab>
+          <v-tab to="/showBoardView" style="margin-right: auto"
+            >관리자가 수락한 게시판 확인</v-tab
           >
-          <template v-if="member_ID === null || member_ID === ''">
+          <template v-if="memberId === null || memberId === undefined">
             <v-tab to="/loginView">로그인</v-tab>
             <v-tab to="/joinView">회원가입</v-tab>
           </template>
           <template v-else>
             <v-tab @click="logout">로그아웃</v-tab>
           </template>
-          <template v-if="member_ID == 'admin'">
-            <v-tab to="/boardRezerveView">예약 관리하기</v-tab>
+          <template v-if="memberId == 'admin'">
+            <v-tab to="/manageBoardView">예약 관리하기</v-tab>
           </template>
         </v-tabs>
       </v-app-bar>
@@ -31,19 +31,17 @@
 export default {
   data() {
     return {
-      member_ID: null,
+      memberId: null,
     };
   },
   methods: {
     logout() {
-      sessionStorage.setItem("member_ID", null);
-      this.member_ID = null;
-      console.log("nice");
+      sessionStorage.removeItem("memberId");
+      console.log(sessionStorage.removeItem("memberId"));
     },
   },
   mounted() {
-    this.member_ID = sessionStorage.getItem("member_ID");
-    console.log(this.member_ID);
+    this.memberId = sessionStorage.getItem("memberId");
   },
 };
 </script>

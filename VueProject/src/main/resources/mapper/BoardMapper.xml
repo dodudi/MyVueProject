@@ -14,7 +14,6 @@
 		FROM 
 			(SELECT ROW_NUMBER() OVER(ORDER BY board_number DESC) as ROW,* 
 				FROM TABLE_BOARD 
-				WHERE BOARD_REZERVE_CHECK = 0 
 				limit #{endItem} ) AS T1 
 		WHERE ROW >= #{startItem}
 	</select>
@@ -57,7 +56,7 @@
 
 	<insert id="addBoard" parameterType="com.vue.dto.BoardDTO">
 		INSERT INTO	TABLE_BOARD
-		(board_number, board_title, board_content, board_date, board_readcount, board_rezerve_check, member_id)
+		(board_number, board_title, board_content, board_date, board_readcount, board_rezerve_check, board_filepath, member_id)
 		VALUES(
 				nextval('seq_board_number')
 				,#{boardTitle}
@@ -65,6 +64,7 @@
 				,NOW()
 				,0
 				,0
+				,#{boardFilePath}
 				,#{memberId}
 			)
 	</insert>
@@ -73,4 +73,10 @@
 		DELETE FROM TABLE_BOARD
 		WHERE board_number = #{boardNumber}
 	</delete>
+	
+	<update id="acceptBoard" parameterType="com.vue.dto.BoardDTO">
+		update table_board
+		set board_rezerve_check = 1
+		where board_number = #{boardNumber}
+	</update>
 </mapper>

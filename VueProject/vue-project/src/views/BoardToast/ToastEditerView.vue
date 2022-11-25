@@ -1,38 +1,68 @@
 <template>
-  <div>
-    <div ref="editor"></div>
-  </div>
+  <div ref="editor"></div>
 </template>
 
 <script>
 import "@toast-ui/editor/dist/toastui-editor.css";
 import Editor from "@toast-ui/editor";
 import axios from "axios";
-// import axios from "axios";
 export default {
+  props: ["oldBoard"],
   data() {
     return {
       editor: {},
+      defaultBoard: {},
     };
   },
   mounted() {
     this.setEditor();
+    if (this.oldBoard !== undefined) {
+      this.defaultBoard = this.oldBoard;
+    }
   },
-  computed: {
-    changeEditer() {
-      return this.$emit("getEditerHTML", this.editor.getHTML());
+
+  watch: {
+    defaultBoard: {
+      handler() {
+        console.log("oldBoard Change");
+        this.editor.setHTML(this.defaultBoard.boardContent);
+        this.editorText(this.editor.getHTML);
+      },
+      deep: true,
     },
+    // editor: {
+    //   handler(newData, oldData) {
+    //     if (newData !== oldData) {
+    //       console.log("editorText");
+    //       this.$emit("getEditerHTML", this.editor.getHTML());
+    //     }
+    //   },
+    //   deep: true,
+    // },
   },
   methods: {
+    editorText(newValue, oldValue) {
+      console.log("editorText");
+      if (newValue !== oldValue) {
+        this.$emit("getEditerHTML", this.editor.getHTML());
+      }
+    },
     setEditor() {
       this.editor = new Editor({
         el: this.$refs.editor,
         initialEditType: "markdown",
         language: "ko",
+        events: {
+          change: this.onChangeEditor,
+        },
         hooks: {
           addImageBlobHook: this.addImageBlobHook,
         },
       });
+    },
+    onChangeEditor() {
+      console.log("onChangeEnditor");
+      this.editorText(this.editor.getHTML());
     },
     async addImageBlobHook(file, setText) {
       try {
@@ -53,7 +83,7 @@ export default {
 
         //첨부된 이미지를 화면에 표시 (1 -> 경로?, 2 -> 이미지 alt)
         axios
-          .post("/imageUpload", formData, {
+          .post("/upload", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -61,7 +91,7 @@ export default {
           .then((response) => {
             console.log(response.data);
             console.log(file.name);
-            setText(response.data + "김");
+            setText("http://localhost:9000/download/" + response.data, "file");
           });
         // 요청 보내고
         // 해당 부분은 구현해야한다

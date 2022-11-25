@@ -40,9 +40,8 @@ public class BoardController {
 		int boardCount = boardMapper.getShowBoardCount();
 		pageInfo.setTotal(boardCount);
 		pageInfo.pageCalculate();
-		log.info(pageInfo.toString());
 		List<BoardDTO> boards = boardMapper.getShowBoards(pageInfo);
-		
+		log.info(pageInfo.toString());
 		resultMap.put("boards", boards);
 		resultMap.put("pageInfo", pageInfo);
 		return resultMap;
@@ -59,6 +58,23 @@ public class BoardController {
 		return boardMapper.getRezerveBoard();
 	}
 	
+	@PostMapping("acceptSelectedBoard")
+	public int acceptSelectedBoard(@RequestBody List<BoardDTO> boards) {
+		int result = 0;
+		for (BoardDTO boardDTO : boards) {
+			result+= boardMapper.acceptBoard(boardDTO);
+		}
+		return result;
+	}
+	
+	@PostMapping("delSelectedBoard")
+	public int delSelectedBoard(@RequestBody List<BoardDTO> boards) {
+		int result = 0;
+		for (BoardDTO boardDTO : boards) {
+			result += boardMapper.delBoard(boardDTO);
+		}
+		return result;
+	}
 	@PostMapping("delBoard")
 	public int delBoard(@RequestBody BoardDTO board) {
 		int result = boardMapper.delBoard(board);

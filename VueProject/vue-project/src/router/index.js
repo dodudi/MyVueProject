@@ -1,18 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import BoardView from "../views/BoardView.vue";
-import BoardDetail from "../views/BoardDetail.vue";
 import LoginView from "../views/LoginView.vue";
 import JoinView from "../views/JoinView.vue";
-import BoardRezerveView from "../views/BoardRezerveView.vue";
-import CheckRezerveVue from "../views/CheckRezerveVue.vue";
-import ShowBoardView from "../views/Board/ShowBoardView.vue";
 import AllBoardView from "../views/Board/AllBoardView.vue";
+import ShowBoardView from "../views/Board/ShowBoardView.vue";
+import ManageBoardView from "../views/BoardAdmin/ManageBoardView.vue";
 import AddBoardView from "../views/Board/AddBoardView.vue";
+import ModifyBoardView from "../views/Board/ModifyBoardView.vue";
+import DetailBoardView from "../views/Board/DetailBoardView.vue";
 Vue.use(VueRouter);
 
 const routes = [
+  //Board
   {
     path: "/",
     redirect: "allBoardView",
@@ -28,26 +28,28 @@ const routes = [
     component: AddBoardView,
   },
   {
+    path: "/modifyBoardView",
+    name: "modifyBoardView",
+    component: ModifyBoardView,
+    props: true,
+  },
+  {
     path: "/allBoardView",
     name: "allBoardView",
     component: AllBoardView,
   },
   {
-    path: "/boardvue",
-    name: "boardvue",
-    component: BoardView,
-  },
-  {
-    path: "/boarddetailvue",
-    name: "boarddetailvue",
-    component: BoardDetail,
+    path: "/detailBoardView",
+    name: "detailBoardView",
+    component: DetailBoardView,
     props: true,
   },
   {
-    path: "/checkrezervevue",
-    name: "checkrezervevue",
-    component: CheckRezerveVue,
+    path: "/manageBoardView",
+    name: "manageBoardView",
+    component: ManageBoardView,
   },
+  //Login, Join
   {
     path: "/loginView",
     name: "loginView",
@@ -57,11 +59,6 @@ const routes = [
     path: "/joinView",
     name: "joinView",
     component: JoinView,
-  },
-  {
-    path: "/boardRezerveView",
-    name: "boardRezerveView",
-    component: BoardRezerveView,
   },
 ];
 

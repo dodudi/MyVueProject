@@ -11,12 +11,13 @@ public class BoardDTO {
 	private int boardReadCount;
 	private String boardRezerveCheck;
 	private String memberId;
-
+	private String boardFilePath;
 	@Override
 	public String toString() {
 		return "BoardDTO [boardNumber=" + boardNumber + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardDate=" + boardDate + ", boardReadCount=" + boardReadCount + ", boardRezerveCheck="
-				+ boardRezerveCheck + ", memberId=" + memberId + "]";
+				+ boardRezerveCheck + ", memberId=" + memberId + ", boardFilePath=" + boardFilePath + "]";
 	}
+
 
 }

@@ -2,7 +2,7 @@
   <v-container style="width: 40%">
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="MEMBER_ID"
+        v-model="memberId"
         :counter="10"
         @keydown="idCheck = false"
         :rules="idRules"
@@ -10,7 +10,7 @@
         required
       ></v-text-field>
       <v-text-field
-        v-model="MEMBER_PASS"
+        v-model="memberPass"
         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
         :rules="passRules"
         :type="show1 ? 'text' : 'password'"
@@ -41,13 +41,13 @@ export default {
       valid: true,
       idCheck: false,
       passCheck: false,
-      MEMBER_ID: "",
+      memberId: "",
       idRules: [
         (v) => !!v || "아이디를 입력해주세요.",
         (v) => (v && v.length <= 10) || "아이디는 10글자 이하입니다.",
         (v) => (v && this.idCheck == false) || "아이디가 존재하지 않습니다.",
       ],
-      MEMBER_PASS: "",
+      memberPass: "",
       passRules: [
         (v) => !!v || "비밀번호를 입력해주세요.",
         (v) => (v && v.length <= 20) || "비밀번호는 20글자 이하입니다.",
@@ -63,15 +63,15 @@ export default {
       if (loginCheck == true) {
         await axios
           .post("/memberLogin", {
-            memberId: this.MEMBER_ID,
-            memberPass: this.MEMBER_PASS,
+            memberId: this.memberId,
+            memberPass: this.memberPass,
           })
           .then((response) => {
             let result = response.data;
             //Login Success
             if (result == "") {
-              sessionStorage.setItem("member_ID", this.MEMBER_ID);
-              location.href = "/boardvue";
+              sessionStorage.setItem("memberId", this.memberId);
+              location.href = "/allBoardView";
               return;
             }
 

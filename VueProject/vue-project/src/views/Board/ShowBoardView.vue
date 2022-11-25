@@ -7,16 +7,15 @@
       :items-per-page="pageInfo.itemLimit"
       hide-default-footer
       class="elevation-1"
+      @click:row="goBoardDetail"
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>My CRUD</v-toolbar-title>
+          <v-toolbar-title>모든 게시판</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-btn color="primary" dark @click.stop="dialogInfo.dialog = true">
-            Add Item
-          </v-btn>
-          <v-dialog v-model="dialogInfo.dialog" max-width="290">
+          <v-btn color="primary" dark @click="goAddBoard"> Add Board </v-btn>
+          <v-dialog v-model="dialogInfo.dialog" max-width="500">
             <v-card>
               <v-card-title>
                 <span class="text-h5">d</span>
@@ -25,13 +24,13 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
                         v-model="editedItem.boardTitle"
                         label="Board Title"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
                         v-model="editedItem.boardContent"
                         label="Board Content"
@@ -97,6 +96,7 @@ export default {
         memberId: "",
         boardDate: "",
         boardReadCount: "",
+        boardRezerveCheck: 0,
       },
       dialogInfo: {
         dialog: false,
@@ -109,11 +109,18 @@ export default {
         { text: "글 작성자", value: "memberId" },
         { text: "글 작성일", value: "boardDate" },
         { text: "조회수", value: "boardReadCount" },
+        { text: "예약상태", value: "boardRezerveCheck" },
       ],
       boards: [],
     };
   },
   methods: {
+    goAddBoard() {
+      this.$router.push({ name: "addBoardView" });
+    },
+    goBoardDetail(item) {
+      this.$router.push({ name: "detailBoardView", params: { board: item } });
+    },
     pageLoad() {
       axios
         .post("getShowBoards", this.pageInfo)

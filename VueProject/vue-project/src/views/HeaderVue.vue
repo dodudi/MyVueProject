@@ -37,6 +37,7 @@ export default {
   methods: {
     logout() {
       sessionStorage.removeItem("memberId");
+      this.memberId = null;
       console.log(sessionStorage.removeItem("memberId"));
     },
   },

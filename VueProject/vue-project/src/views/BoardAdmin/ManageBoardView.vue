@@ -39,8 +39,9 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <accept-board-dialog-vue></accept-board-dialog-vue>
           <!-- 게시글 허용 Dialog-->
-          <v-dialog v-model="acceptDialog" max-width="500px">
+          <!-- <v-dialog v-model="acceptDialog" max-width="500px">
             <v-card>
               <v-card-title class="text-h5"
                 >Are you sure you want to delete this item?</v-card-title
@@ -54,35 +55,42 @@
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
-          </v-dialog>
+          </v-dialog> -->
         </v-toolbar>
       </template>
     </v-data-table>
-    <div class="text-center pt-2">
+    <pagination-view @getBoard="getBoard"></pagination-view>
+    <!-- <div class="text-center pt-2">
       <v-pagination
         v-model="pageNum"
         :length="pageInfo.realEndPage"
         :total-visible="7"
       ></v-pagination>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import PaginationView from "../Pagination/PaginationView.vue";
+import AcceptBoardDialogVue from "../Dialog/AcceptBoardDialog.vue";
 import axios from "axios";
 export default {
-  created() {
-    this.pageInfo.pageNum = this.pageNum;
-    this.pageLoad();
+  components: {
+    AcceptBoardDialogVue,
+    PaginationView,
   },
-  watch: {
-    pageNum: {
-      handler() {
-        this.pageInfo.pageNum = this.pageNum;
-        this.pageLoad();
-      },
-    },
-  },
+  //   created() {
+  //     this.pageInfo.pageNum = this.pageNum;
+  //     this.pageLoad();
+  //   },
+  //   watch: {
+  //     pageNum: {
+  //       handler() {
+  //         this.pageInfo.pageNum = this.pageNum;
+  //         this.pageLoad();
+  //       },
+  //     },
+  //   },
   data() {
     return {
       //CheckList
@@ -90,7 +98,7 @@ export default {
       singleSelect: false,
       //Delete Dialog Open or Close
       deleteDialog: false,
-      acceptDialog: false,
+      //acceptDialog: false,
       editedItem: {
         boardNumber: 0,
         boardTitle: "",
@@ -103,7 +111,6 @@ export default {
       dialogInfo: {
         dialog: false,
       },
-      pageNum: 1,
       pageInfo: {},
       headers: [
         { text: "글 번호", value: "boardNumber" },
@@ -117,21 +124,25 @@ export default {
     };
   },
   methods: {
-    goAccept() {
-      axios
-        .post("/acceptSelectedBoard", this.selected)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    // goAccept() {
+    //   axios
+    //     .post("/acceptSelectedBoard", this.selected)
+    //     .then((response) => {
+    //       console.log(response.data);
+    //       this.pageLoad();
+    //       this.acceptDialog = false;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
     goDelete() {
       axios
         .post("/delSelectedBoard", this.selected)
         .then((response) => {
           console.log(response.data);
+          this.pageLoad();
+          this.deleteDialog = false;
         })
         .catch((error) => {
           console.log(error);
@@ -140,17 +151,22 @@ export default {
     goBoardDetail(item) {
       this.$router.push({ name: "detailBoardView", params: { board: item } });
     },
-    pageLoad() {
-      axios
-        .post("getBoards", this.pageInfo)
-        .then((response) => {
-          console.log(response.data.boards);
-          console.log(response.data.pageInfo);
-          this.boards = response.data.boards;
-          this.pageInfo = response.data.pageInfo;
-        })
-        .catch((error) => console.log(error));
+
+    getBoard({ boards, pageInfo }) {
+      this.boards = boards;
+      this.pageInfo = pageInfo;
     },
+    // pageLoad() {
+    //   axios
+    //     .post("getBoards", this.pageInfo)
+    //     .then((response) => {
+    //       console.log(response.data.boards);
+    //       console.log(response.data.pageInfo);
+    //       this.boards = response.data.boards;
+    //       this.pageInfo = response.data.pageInfo;
+    //     })
+    //     .catch((error) => console.log(error));
+    // },
   },
 };
 </script>

@@ -21,12 +21,12 @@ import bus from "../EventBus/bus.js";
 import axios from "axios";
 export default {
   created() {
-    bus.$on("acceptOnDialog", (acceptDialog == true));
-    bus.$on("acceptOffDialog", (acceptDialog == false));
+    bus.$on("acceptOnDialog", this.openDialog);
+    bus.$on("acceptOffDialog", this.closeDialog);
   },
   beforeDestroy() {
-    bus.$off("acceptOnDialog", (acceptDialog = true));
-    bus.$off("acceptOffDialog", (acceptDialog = false));
+    bus.$off("acceptOnDialog", this.openDialog);
+    bus.$off("acceptOffDialog", this.closeDialog);
   },
   data() {
     return {
@@ -34,6 +34,12 @@ export default {
     };
   },
   methods: {
+    closeDialog() {
+      this.acceptDialog = false;
+    },
+    openDialog() {
+      this.acceptDialog = true;
+    },
     goAccept() {
       axios
         .post("/acceptSelectedBoard", this.selected)

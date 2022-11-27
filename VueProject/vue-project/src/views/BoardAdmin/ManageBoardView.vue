@@ -20,11 +20,12 @@
           <v-btn color="primary" dark class="mr-5" @click="acceptOnDialog">
             Accept Selected Board
           </v-btn>
-          <v-btn color="primary" dark @click="deleteDialog = true">
+          <v-btn color="primary" dark @click="deleteOnDialog">
             Delete Selected
           </v-btn>
           <!-- 삭제 dialog-->
-          <v-dialog v-model="deleteDialog" max-width="500px">
+          <delete-board-dialog :selected="selected"></delete-board-dialog>
+          <!-- <v-dialog v-model="deleteDialog" max-width="500px">
             <v-card>
               <v-card-title class="text-h5"
                 >Are you sure you want to delete this item?</v-card-title
@@ -38,7 +39,7 @@
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
-          </v-dialog>
+          </v-dialog> -->
           <accept-board-dialog-vue
             :selected="selected"
           ></accept-board-dialog-vue>
@@ -76,11 +77,13 @@
 import bus from "../EventBus/bus.js";
 import PaginationView from "../Pagination/PaginationView.vue";
 import AcceptBoardDialogVue from "../Dialog/AcceptBoardDialog.vue";
-import axios from "axios";
+import DeleteBoardDialog from "../Dialog/DeleteBoardDialog.vue";
+// import axios from "axios";
 export default {
   components: {
     AcceptBoardDialogVue,
     PaginationView,
+    DeleteBoardDialog,
   },
   //   created() {
   //     this.pageInfo.pageNum = this.pageNum;
@@ -142,18 +145,21 @@ export default {
     acceptOnDialog() {
       bus.$emit("acceptOnDialog");
     },
-    goDelete() {
-      axios
-        .post("/delSelectedBoard", this.selected)
-        .then((response) => {
-          console.log(response.data);
-          this.pageLoad();
-          this.deleteDialog = false;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    deleteOnDialog() {
+      bus.$emit("deleteOnDialog");
     },
+    // goDelete() {
+    //   axios
+    //     .post("/delSelectedBoard", this.selected)
+    //     .then((response) => {
+    //       console.log(response.data);
+    //       this.pageLoad();
+    //       this.deleteDialog = false;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
     goBoardDetail(item) {
       this.$router.push({ name: "detailBoardView", params: { board: item } });
     },

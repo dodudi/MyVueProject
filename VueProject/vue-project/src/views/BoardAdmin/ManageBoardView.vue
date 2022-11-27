@@ -17,7 +17,7 @@
           <v-toolbar-title>게시판 관리하기</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-btn color="primary" dark class="mr-5" @click="acceptDialog = true">
+          <v-btn color="primary" dark class="mr-5" @click="acceptOnDialog">
             Accept Selected Board
           </v-btn>
           <v-btn color="primary" dark @click="deleteDialog = true">
@@ -39,7 +39,9 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <accept-board-dialog-vue></accept-board-dialog-vue>
+          <accept-board-dialog-vue
+            :selected="selected"
+          ></accept-board-dialog-vue>
           <!-- 게시글 허용 Dialog-->
           <!-- <v-dialog v-model="acceptDialog" max-width="500px">
             <v-card>
@@ -71,6 +73,7 @@
 </template>
 
 <script>
+import bus from "../EventBus/bus.js";
 import PaginationView from "../Pagination/PaginationView.vue";
 import AcceptBoardDialogVue from "../Dialog/AcceptBoardDialog.vue";
 import axios from "axios";
@@ -136,6 +139,9 @@ export default {
     //       console.log(error);
     //     });
     // },
+    acceptOnDialog() {
+      bus.$emit("acceptOnDialog");
+    },
     goDelete() {
       axios
         .post("/delSelectedBoard", this.selected)

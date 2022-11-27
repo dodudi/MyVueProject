@@ -2,13 +2,11 @@
   <v-dialog v-model="acceptDialog" max-width="500px">
     <v-card>
       <v-card-title class="text-h5"
-        >Are you sure you want to delete this item?</v-card-title
+        >게시물 등록을 허용하시겠습니까?</v-card-title
       >
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="acceptDialog = false"
-          >Cancel</v-btn
-        >
+        <v-btn color="blue darken-1" text @click="closeDialog">Cancel</v-btn>
         <v-btn color="blue darken-1" text @click="goAccept">OK</v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -20,6 +18,7 @@
 import bus from "../EventBus/bus.js";
 import axios from "axios";
 export default {
+  props: ["selected"],
   created() {
     bus.$on("acceptOnDialog", this.openDialog);
     bus.$on("acceptOffDialog", this.closeDialog);
@@ -45,9 +44,8 @@ export default {
         .post("/acceptSelectedBoard", this.selected)
         .then((response) => {
           console.log(response.data);
-          //this.$emit("pageLoad");
-          this.pageLoad();
-          this.acceptDialog = false;
+          bus.$emit("pageLoad");
+          this.closeDialog();
         })
         .catch((error) => {
           console.log(error);

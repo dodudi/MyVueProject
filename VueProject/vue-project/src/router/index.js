@@ -6,16 +6,17 @@ import JoinView from "../views/JoinView.vue";
 import AllBoardView from "../views/Board/AllBoardView.vue";
 import ShowBoardView from "../views/Board/ShowBoardView.vue";
 import ManageBoardView from "../views/BoardAdmin/ManageBoardView.vue";
-import AddBoardView from "../views/Board/AddBoardView.vue";
-import ModifyBoardView from "../views/Board/ModifyBoardView.vue";
+import AddBoardView from "../views/EditBoard/AddBoardView.vue";
+import ModifyBoardView from "../views/EditBoard/ModifyBoardView.vue";
 import DetailBoardView from "../views/Board/DetailBoardView.vue";
+import ChartTest from "../views/Chart/ChartTest.vue";
 Vue.use(VueRouter);
 
 const routes = [
   //Board
   {
     path: "/",
-    redirect: "allBoardView",
+    redirect: "chartTest",
   },
   {
     path: "/showBoardView",
@@ -59,6 +60,12 @@ const routes = [
     path: "/joinView",
     name: "joinView",
     component: JoinView,
+  },
+  //chart
+  {
+    path: "/chartTest",
+    name: "chartTest",
+    component: ChartTest,
   },
 ];
 

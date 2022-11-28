@@ -1,48 +1,53 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import axios from "axios";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    dialog: false,
-    dialogDelete: false,
-    editedItem: {},
-    editedIndex: -1,
-    defaultItem: {},
+    chartData: {},
+    tableHeaders: [
+      { text: "글 번호", value: "boardNumber" },
+      { text: "글 제목", value: "boardTitle" },
+      { text: "글 작성자", value: "memberId" },
+      { text: "글 작성일", value: "boardDate" },
+      { text: "조회수", value: "boardReadCount" },
+      { text: "예약상태", value: "boardRezerveCheck" },
+    ],
+    tableLoading: true,
+    pageInfo: { pageNum: 1 },
     boards: [],
-    pageInfo: {},
-    pageCalc: {},
   },
   getters: {
-    getPageCalc(state) {
-      return state.pageCalc;
+    //Test Chart
+    getChartData(state) {
+      return state.chartData;
     },
-    getPageInfo(state) {
-      return state.pageInfo;
+    getTableHeaders(state) {
+      return state.tableHeaders;
     },
-    getBoards(state) {
-      return state.boards;
-    },
-    getEditedIndex(state) {
-      return state.editedIndex;
-    },
-    getDefaultItem(state) {
-      return state.defaultItem;
-    },
-    getEditedItem(state) {
-      return state.editedItem;
-    },
-    getDialog(state) {
-      return state.dialog;
+    getTableLoading(state) {
+      return state.tableLoading;
     },
     getDeleteDialog(state) {
       return state.dialogDelete;
     },
+    getBoards(state) {
+      return state.boards;
+    },
+    getPageInfo(state) {
+      return state.pageInfo;
+    },
   },
   mutations: {
-    SET_PAGE_CALC(state, value) {
-      state.pageCalc = value;
+    SET_CHART_DATA(state, value) {
+      state.chartData = value;
+    },
+    SET_TABLE_LOADING(state, value) {
+      state.tableLoading = value;
+    },
+    SET_DELETE_DIALOG(state, value) {
+      state.dialogDelete = value;
     },
     SET_PAGE_INFO(state, value) {
       state.pageInfo = value;
@@ -50,48 +55,24 @@ export default new Vuex.Store({
     SET_BOARDS(state, value) {
       state.boards = value;
     },
-    SET_EDITED_INDEX(state, value) {
-      state.editedIndex = value;
-    },
-    SET_DEFAULT_ITEM(state, value) {
-      state.defaultItem = value;
-    },
-    SET_EDITED_ITEM(state, value) {
-      state.editedItem = value;
-    },
-    SET_DIALOG(state, value) {
-      state.dialog = value;
-    },
-    SET_DELETE_DIALOG(state, value) {
-      state.dialogDelete = value;
-    },
   },
   actions: {
-    changePageCalc({ commit }, { value }) {
-      commit("SET_PAGE_CALC", value);
-    },
-    changePageInfo({ commit }, { value }) {
-      commit("SET_PAGE_INFO", value);
-    },
-    changeBoards({ commit }, { value }) {
-      commit("SET_BOARDS", value);
-    },
-    changeEdtiedIndex({ commit }, { value }) {
-      commit("SET_EDITED_INDEX", value);
-    },
-    changeDefaultItem({ commit }, { value }) {
-      commit("SET_DEFAULT_ITEM", value);
-    },
-    changeEditedItem({ commit }, { value }) {
-      commit("SET_EDITED_ITEM", value);
-    },
-    changeDialog({ commit }, { value }) {
-      commit("CHANGE_DIALOG", value);
-    },
     changeDeleteDialog({ commit }, { value }) {
       commit("SET_DELETE_DIALOG", value);
     },
+    async pageLoad({ commit }, data) {
+      commit("SET_TABLE_LOADING", true);
+      await axios
+        .post(data, this.getters.getPageInfo)
+        .then((response) => {
+          commit("SET_PAGE_INFO", response.data.pageInfo);
+          commit("SET_BOARDS", response.data.boards);
+          commit("SET_TABLE_LOADING", false);
+        })
+        .catch((error) => {
+          console.log("Store PageLoad에서 Error : " + error);
+        });
+    },
   },
-
   modules: {},
 });

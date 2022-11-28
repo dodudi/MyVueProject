@@ -21,11 +21,8 @@
       >
         Add
       </v-btn>
-
       <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-      <v-btn color="warning" @click="resetValidation"> Reset Validation </v-btn>
     </v-form>
-    {{ newBoard.boardContent }}
   </v-container>
 </template>
 
@@ -74,9 +71,6 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
     },
   },
 };

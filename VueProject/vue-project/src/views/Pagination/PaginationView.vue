@@ -2,50 +2,34 @@
   <div class="text-center pt-2">
     <v-pagination
       v-model="pageNum"
-      :length="pageInfo.realEndPage"
+      :length="getRealEndpage"
       :total-visible="7"
     ></v-pagination>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import bus from "../EventBus/bus.js";
 export default {
+  props: ["pagingMethod"],
   created() {
-    bus.$on("pageLoad", this.pageLoad);
-    this.pageInfo.pageNum = this.pageNum;
-    bus.$emit("pageLoad");
-  },
-  beforeDestroy() {
-    bus.$off("pageLoad", this.pageLoad);
+    this.$store.commit("SET_PAGE_INFO", { pageNum: 1 });
+    this.$store.dispatch("pageLoad", this.pagingMethod);
   },
   watch: {
-    pageNum: {
-      handler() {
-        this.pageInfo.pageNum = this.pageNum;
-        bus.$emit("pageLoad");
-      },
+    pageNum() {
+      console.log("Page Change");
+      this.$store.commit("SET_PAGE_INFO", { pageNum: this.pageNum });
+      this.$store.dispatch("pageLoad", this.pagingMethod);
     },
   },
   data() {
     return {
       pageNum: 1,
-      pageInfo: {},
     };
   },
-  methods: {
-    pageLoad() {
-      axios
-        .post("getBoards", this.pageInfo)
-        .then((response) => {
-          this.$emit("getBoard", {
-            boards: response.data.boards,
-            pageInfo: response.data.pageInfo,
-          });
-          this.pageInfo = response.data.pageInfo;
-        })
-        .catch((error) => console.log(error));
+  computed: {
+    getRealEndpage() {
+      return this.$store.getters.getPageInfo.realEndPage;
     },
   },
 };

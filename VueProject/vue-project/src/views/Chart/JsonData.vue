@@ -54,9 +54,10 @@ export default {
       console.log(jsonData[0].add_date);
       console.log(new Date(jsonData[0].add_date));
       //addDate.splice(this.maxCount, addDate.length);
-      return addDate.sort(
-        (a, b) => new Date(a.add_date) - new Date(b.add_date)
-      );
+      return addDate.sort((a, b) => {
+        console.log(a.add_date);
+        return new Date(a.add_date) - new Date(b.add_date);
+      });
     },
     getCount(jsonData) {
       const addDate = this.getLabels(jsonData);

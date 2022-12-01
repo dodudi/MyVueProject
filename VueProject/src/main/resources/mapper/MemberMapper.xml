@@ -7,14 +7,35 @@
 		SELECT COUNT(*) FROM
 		TABLE_MEMBER
 	</select>
-	
-	<select id="getMember" resultType="com.vue.dto.MemberDTO" parameterType="string">
-		SELECT member_id as memberId, member_pass as memberPass, member_name as memberName 
-		FROM TABLE_MEMBER WHERE member_id = #{memberId}
+
+	<select id="getMember" resultType="com.vue.dto.MemberDTO"
+		parameterType="string">
+		SELECT member_id as memberId, member_pass as memberPass,
+		member_name as memberName
+		FROM TABLE_MEMBER WHERE member_id =
+		#{memberId}
 	</select>
-	
+
 	<insert id="addMember" parameterType="com.vue.dto.MemberDTO">
-		INSERT INTO TABLE_MEMBER(member_id, member_pass, member_name) 
-		VALUES (#{memberId}, #{memberPass}, #{memberName});
+		INSERT INTO
+		TABLE_MEMBER(member_id, member_pass, member_name)
+		VALUES (#{memberId},
+		#{memberPass}, #{memberName});
+	</insert>
+	<!-- create table table_user( user_name varchar, user_id varchar, user_pass 
+		varchar, user_phone varchar, user_email varchar, user_gender varchar, user_reg_date 
+		timestamp default now() ); delete from table_user; select * from table_user; 
+		drop table table_user; -->
+	<insert id="addMockMember"
+		parameterType="com.vue.dto.MockMemberDTO">
+		insert into table_user( user_name,
+		user_id,
+		user_pass,
+		user_phone,
+		user_email,
+		user_gender
+		)
+		values (#{userName}, #{userId}, #{userPass}, #{userPhone}, #{userEmail},
+		#{userGender})
 	</insert>
 </mapper>

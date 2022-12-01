@@ -10,13 +10,19 @@ import AddBoardView from "../views/EditBoard/AddBoardView.vue";
 import ModifyBoardView from "../views/EditBoard/ModifyBoardView.vue";
 import DetailBoardView from "../views/Board/DetailBoardView.vue";
 import ChartTest from "../views/Chart/ChartTest.vue";
+import AddMockData from "../views/MockInsertView.vue";
 Vue.use(VueRouter);
 
 const routes = [
   //Board
   {
     path: "/",
-    redirect: "chartTest",
+    redirect: "addMockData",
+  },
+  {
+    path: "/addMockData",
+    name: "addMockData",
+    component: AddMockData,
   },
   {
     path: "/showBoardView",

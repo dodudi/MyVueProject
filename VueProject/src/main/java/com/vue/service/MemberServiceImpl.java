@@ -1,11 +1,14 @@
 package com.vue.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vue.dto.MemberDTO;
+import com.vue.dto.MockMemberDTO;
 import com.vue.mapper.MemberMapper;
 
 @Service
@@ -14,6 +17,22 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberMapper memberMapper;
 	
+	public int addMockMember(List<MockMemberDTO> memberMock) {
+		int addCount = 0;
+
+		try {
+			for (MockMemberDTO mockMemberDTO : memberMock) {
+				log.info(mockMemberDTO.getUserId());
+				addCount +=	memberMapper.addMockMember(mockMemberDTO);
+			}
+		}catch (NullPointerException e) {
+			log.info("User의 Mock 데이터가 null입니다.");
+			return -1;
+		}
+		
+		log.info(addCount + "");
+		return addCount;
+	}
 	@Override
 	public boolean joinCheck(MemberDTO member) throws NullPointerException {
 		MemberDTO getMember = memberMapper.getMember(member);

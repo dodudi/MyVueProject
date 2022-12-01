@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vue.dto.MockMemberDTO;
+import com.vue.dto.ProductDTO;
 import com.vue.service.MemberService;
 import com.vue.service.MemberServiceImpl;
 
@@ -24,6 +25,13 @@ public class MockController {
 	public int addUserMock(@RequestBody List<MockMemberDTO> mockMember) {
 		log.info(mockMember + "");
 		int result = service.addMockMember(mockMember);
-		return 1;
+		return result;
+	}
+	
+	@PostMapping("/addProductMock")
+	public int addProductMock(@RequestBody List<ProductDTO> mockProduct) {
+		log.info(mockProduct + "");
+		int result = service.addMockProduct(mockProduct);
+		return result;
 	}
 } 

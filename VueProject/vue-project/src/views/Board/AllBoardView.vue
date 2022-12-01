@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import UserBoardView from "../../components/UserBoardView.vue";
+import UserBoardView from "../../components/board/UserBoardView.vue";
 export default {
   components: {
     UserBoardView,

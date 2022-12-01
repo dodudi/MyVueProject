@@ -36,6 +36,24 @@
 		user_gender,
 		user_reg_date
 		)
-		values (#{userName}, #{userId}, #{userPass}, #{userPhone}, #{userEmail}, #{userGender},  #{userRegDate}::timestamp)
+		values (#{userName},
+		#{userId}, #{userPass}, #{userPhone}, #{userEmail}, #{userGender},
+		#{userRegDate}::timestamp)
+	</insert>
+
+	<!-- create table table_product( product_id int, product_name varchar, product_price 
+		int, product_state varchar, produc_reg_date timeStamp default now() ); -->
+	<insert id="addMockProduct"
+		parameterType="com.vue.dto.ProductDTO">
+		insert into table_product(
+		product_id,
+		product_name,
+		product_price,
+		product_state,
+		produc_reg_date
+		)
+		values
+		(#{productId}, #{productName}, #{productPrice}, #{productState},
+		#{productRegDate}::timestamp)
 	</insert>
 </mapper>

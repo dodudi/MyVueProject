@@ -39,7 +39,7 @@
 
 <script>
 import bus from "../views/EventBus/bus.js";
-import PaginationView from "../views/Pagination/PaginationView.vue";
+import PaginationView from "../components/Pagination/PaginationView.vue";
 import AcceptBoardDialogVue from "../views/Dialog/AcceptBoardDialog.vue";
 import DeleteBoardDialog from "../views/Dialog/DeleteBoardDialog.vue";
 export default {

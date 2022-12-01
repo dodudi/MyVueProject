@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <LineChart :datasetIdKey="datasetIdKey" :chartData="chartData" />
 </template>
 
@@ -81,4 +81,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style></style> -->

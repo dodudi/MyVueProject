@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import PaginationView from "../views/Pagination/PaginationView.vue";
+import PaginationView from "../Pagination/PaginationView.vue";
 export default {
   components: {
     PaginationView,

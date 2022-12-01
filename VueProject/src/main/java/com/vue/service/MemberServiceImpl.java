@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.vue.dto.MemberDTO;
 import com.vue.dto.MockMemberDTO;
+import com.vue.dto.ProductDTO;
 import com.vue.mapper.MemberMapper;
 
 @Service
@@ -16,7 +17,22 @@ public class MemberServiceImpl implements MemberService {
 	private static final Logger log = LoggerFactory.getLogger(MemberServiceImpl.class);
 	@Autowired
 	private MemberMapper memberMapper;
-	
+	public int addMockProduct(List<ProductDTO> productMock) {
+		int addCount = 0;
+
+		try {
+			for (ProductDTO productMockDTO : productMock) {
+				addCount +=	memberMapper.addMockProduct(productMockDTO);
+			}
+		}catch (NullPointerException e) {
+			log.info("Product의 Mock 데이터가 null입니다.");
+			return -1;
+		}
+		
+		log.info(addCount + "");
+		return addCount;
+
+	}
 	public int addMockMember(List<MockMemberDTO> memberMock) {
 		int addCount = 0;
 

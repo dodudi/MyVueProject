@@ -5,10 +5,9 @@ import mock from "./mock.js";
 import board from "./board.js";
 import user from "./user.js";
 import chart from "./chart.js";
-import menu from "../Menu.vue";
+import MenuView from "../views/MenuView.vue";
 Vue.use(VueRouter);
-console.log(mock);
-console.log(process.env.BASE_URL);
+
 const routes = [
   {
     path: "/",
@@ -17,12 +16,11 @@ const routes = [
   {
     path: "/menu",
     name: "menuName",
-    compontent: menu,
+    component: MenuView,
     children: [...mock, ...board, ...chart],
   },
   ...user,
 ];
-console.log(routes);
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,

@@ -22,10 +22,7 @@
 		VALUES (#{memberId},
 		#{memberPass}, #{memberName});
 	</insert>
-	<!-- create table table_user( user_name varchar, user_id varchar, user_pass 
-		varchar, user_phone varchar, user_email varchar, user_gender varchar, user_reg_date 
-		timestamp default now() ); delete from table_user; select * from table_user; 
-		drop table table_user; -->
+
 	<insert id="addMockMember"
 		parameterType="com.vue.dto.MockMemberDTO">
 		insert into table_user( user_name,
@@ -41,8 +38,7 @@
 		#{userRegDate}::timestamp)
 	</insert>
 
-	<!-- create table table_product( product_id int, product_name varchar, product_price 
-		int, product_state varchar, produc_reg_date timeStamp default now() ); -->
+	<!--  -->
 	<insert id="addMockProduct"
 		parameterType="com.vue.dto.ProductDTO">
 		insert into table_product(

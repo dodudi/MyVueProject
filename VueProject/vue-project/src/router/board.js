@@ -7,34 +7,34 @@ import DetailBoardView from "../views/Board/DetailBoardView.vue";
 
 const board = [
   {
-    path: "/showBoardView",
+    path: "/menu/showBoardView",
     name: "showBoardView",
     component: ShowBoardView,
   },
   {
-    path: "/addBoardView",
+    path: "/menu/addBoardView",
     name: "addBoardView",
     component: AddBoardView,
   },
   {
-    path: "/modifyBoardView",
+    path: "/menu/modifyBoardView",
     name: "modifyBoardView",
     component: ModifyBoardView,
     props: true,
   },
   {
-    path: "/allBoardView",
+    path: "/menu/allBoardView",
     name: "allBoardView",
     component: AllBoardView,
   },
   {
-    path: "/detailBoardView",
+    path: "/menu/detailBoardView",
     name: "detailBoardView",
     component: DetailBoardView,
     props: true,
   },
   {
-    path: "/manageBoardView",
+    path: "/menu/manageBoardView",
     name: "manageBoardView",
     component: ManageBoardView,
   },

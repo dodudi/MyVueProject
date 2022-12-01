@@ -2,7 +2,7 @@
 import AddMockData from "../views/MockInsertView.vue";
 const mock = [
   {
-    path: "/addMockData",
+    path: "/menu/addMockData",
     name: "addMockData",
     component: AddMockData,
   },

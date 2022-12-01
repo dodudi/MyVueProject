@@ -1,5 +1,7 @@
 package com.vue.dto;
 
+import java.util.Date;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
@@ -11,6 +13,6 @@ public class MockMemberDTO {
 	private String userPhone;
 	private String userEmail; 
 	private String userGender;
-	private String userRegDate;
+	private Date userRegDate;
 	
 }

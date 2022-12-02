@@ -6,6 +6,7 @@ import board from "./board.js";
 import user from "./user.js";
 import chart from "./chart.js";
 import MenuView from "../views/MenuView.vue";
+import UserAccountView from "../views/UserAccountView.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -19,7 +20,12 @@ const routes = [
     component: MenuView,
     children: [...mock, ...board, ...chart],
   },
-  ...user,
+  {
+    path: "/account",
+    name: "accountView",
+    component: UserAccountView,
+    children: [...user],
+  },
 ];
 const router = new VueRouter({
   mode: "history",

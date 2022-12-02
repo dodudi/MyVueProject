@@ -8,8 +8,8 @@
         >관리자가 수락한 게시판 확인</v-tab
       >
       <template v-if="memberId === null || memberId === undefined">
-        <v-tab to="/loginView">로그인</v-tab>
-        <v-tab to="/joinView">회원가입</v-tab>
+        <v-tab to="/account/loginView">로그인</v-tab>
+        <v-tab to="/account/joinView">회원가입</v-tab>
       </template>
       <template v-else>
         <v-tab @click="logout">로그아웃</v-tab>
@@ -41,4 +41,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.v-sheet.v-toolbar:not(.v-sheet--outlined) {
+  box-shadow: none;
+}
+</style>

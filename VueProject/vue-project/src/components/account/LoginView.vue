@@ -1,35 +1,37 @@
 <template>
-  <v-container style="width: 40%">
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field
-        v-model="memberId"
-        :counter="10"
-        @keydown="idCheck = false"
-        :rules="idRules"
-        label="아이디"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="memberPass"
-        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-        :rules="passRules"
-        :type="show1 ? 'text' : 'password'"
-        label="비밀번호"
-        :counter="20"
-        @click:append="show1 = !show1"
-        @keydown="passCheck = false"
-      ></v-text-field>
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[(v) => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
+  <v-main>
+    <v-container style="width: 40%">
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          v-model="memberId"
+          :counter="10"
+          @keydown="idCheck = false"
+          :rules="idRules"
+          label="아이디"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="memberPass"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="passRules"
+          :type="show1 ? 'text' : 'password'"
+          label="비밀번호"
+          :counter="20"
+          @click:append="show1 = !show1"
+          @keydown="passCheck = false"
+        ></v-text-field>
+        <v-checkbox
+          v-model="checkbox"
+          :rules="[(v) => !!v || 'You must agree to continue!']"
+          label="Do you agree?"
+          required
+        ></v-checkbox>
 
-      <v-btn color="warning" class="mr-4" @click="login"> 로그인 </v-btn>
-      <v-btn color="error" @click="reset"> Reset Form </v-btn>
-    </v-form>
-  </v-container>
+        <v-btn color="warning" class="mr-4" @click="login"> 로그인 </v-btn>
+        <v-btn color="error" @click="reset"> Reset Form </v-btn>
+      </v-form>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

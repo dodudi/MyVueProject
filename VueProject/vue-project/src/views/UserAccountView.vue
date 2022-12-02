@@ -1,17 +1,17 @@
 <template>
   <v-app>
     <new-header-view></new-header-view>
-    <menu-body-view></menu-body-view>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import MenuBodyView from "../components/layout1/MenuBodyView.vue";
 import NewHeaderView from "../components/layout1/NewHeaderView.vue";
 export default {
   components: {
-    MenuBodyView,
     NewHeaderView,
   },
 };
 </script>
+
+<style></style>
